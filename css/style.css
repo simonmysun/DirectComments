@@ -1,0 +1,149 @@
+.navbar-fixed-top {
+    margin-top: 20px;
+}
+
+.mainbody {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.frame {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.scroll {
+    overflow: auto;
+}
+
+#player-scroll {
+    height: 100%;
+}
+
+#canvas-frame {
+    position: fixed;
+    top: 80px;
+    border: 1px #f77 solid;
+    z-index: 1010;
+}
+
+#comment-frame {
+    position: fixed;
+    top: 80px;
+}
+
+#comment-list-frame {
+    height: 50%;
+    width: 100%;
+    border: 1px #7f7 solid;
+}
+
+#single-comment {
+    height: 50%;
+    overflow: hidden;
+}
+
+#comment-detail-frame {
+    height: 200%;
+    width: 100%;
+    border: 1px #77f solid;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: all .3s ease-in-out;
+}
+
+#a-comment {
+    height: 50%;
+}
+
+#new-comment {
+    height: 50%;
+}
+
+#new-comment>form {
+    width: 100%;
+    height: 100%;
+}
+
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -75%; /* 9 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -75%; /* 9 columns */
+  }
+
+  .row-offcanvas-right.active {
+    right: 75%; /* 9 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 75%; /* 9 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 75%; /* 9 columns */
+  }
+}
+
+.navbar-toggle {
+    float: left;
+}
+
+#offcanvas-toggle {
+    padding: 15px 15px;
+}
+
+.content-pic {
+    z-index: 100;
+    width: 100%;
+}
+
+#new-comment-textarea {
+    width: 70%;
+    height: 100%;
+    float: left;
+    padding: 5px;
+}
+
+#new-comment-buttons {
+    width: 25%;
+    float: left;
+    padding: 5px;
+}
+
+#new-comment-textarea>textarea {
+    height: 100%;
+    width: 100%;
+}
+
+#selected {
+    position: fixed;
+    z-index: 1005;
+    border: 1px #f00 solid;
+    display: hidden;
+}
+
+.balloon-laid {
+    position: absolute;
+    border: 1px rgba(155,155,255,0.5) solid;
+    background: rgba(233,233,255,0.2);
+}
