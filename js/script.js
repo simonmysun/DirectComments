@@ -2,6 +2,7 @@ commentUrl = '/api/comment-101.json';
 contentUrl = '/api/content-101.json';
 
 var commentList = [];
+var content;
 
 var selected = {};
 var mouseDown;
@@ -31,6 +32,41 @@ function fetchComment() {
 	    $('#comment-list-frame').append(makeComment(commentList[x]));
 	    $('#player-scroll').append(makeBalloon(commentList[x]));
 	}
+    }
+}
+
+function makeContent(c) {
+    var html = '';
+    html = html.concat('<div class="content">')
+    html = html.concat('<img id="content-page-' + c.page + '" src="' + c.url + '" class="content-pic">');
+    html = html.concat('</div>');
+    return html;
+}
+
+function fetchContent() {
+    content = $.parseJSON($.ajax({url:contentUrl,async:false}).responseText);
+    for(x in content.content) {
+	if($('#content-page-' + content.content[x].page)[0] === undefined) {
+	    $('#player-scroll').append(makeContent(content.content[x]));
+	}
+    }
+}
+
+function reDraw() {
+    $("#comment-frame").css({
+	"height": $(window).height() - 162
+	,"width": $('#comment-row').width()
+    });
+    $("#canvas-frame").css({
+	"height": $(window).height() - 162
+	,"width": $('#content-row').width()
+    });
+    contentHeight = $('#player-scroll').height();
+    contentWidth = $('#player-scroll').width();
+    for(x in content.content) {
+	$('#content-page-' + content.content[x].page).height($('#content-page-' + content.content[x].page).width() * content.content[x].ratio);
+    }
+    for(x in commentList) {
 	var b = $('#balloon-laid-id-' + commentList[x].id);
 	b.css({
 	    "left": commentList[x].x1 * contentWidth + 'px'
@@ -41,21 +77,6 @@ function fetchComment() {
     }
 }
 
-function makeContent(c) {
-    var html = '';
-    html = html.concat('<div class="content" id="content=page-' + c.page + '">')
-    html = html.concat('<img src="' + c.url + '" class="content-pic">');
-    html = html.concat('</div>');
-    return html;
-}
-
-function fetchContent() {
-    var content = $.parseJSON($.ajax({url:contentUrl,async:false}).responseText);
-    for(x in content.content) {
-	$('#player-scroll').append(makeContent(content.content[x]));
-    }
-}
-
 function newComment() {
     $('#comment-detail-frame').css({"-webkit-transform": "translateY(" + ( - $('#a-comment').height() ) + "px)"});
     var s = $('#selected');
@@ -63,7 +84,7 @@ function newComment() {
     var x2 = (parseInt(s.css("left")) + parseInt(s.css("width")) - $('#canvas-frame')[0].offsetLeft) / contentWidth;
     var y1 = (parseInt(s.css("top")) + parseInt($(window).scrollTop()) - $('#canvas-frame')[0].offsetTop) / contentHeight;
     var y2 = (parseInt(s.css("top")) + parseInt(s.css("height")) + parseInt($(window).scrollTop()) - $('#canvas-frame')[0].offsetTop) / contentHeight;
-    console.log(',"x1": ' + x1 + ',"x2": ' + x2 + ',"y1": ' + y1 + ',"y2": ' + y2);
+    //console.log(',"x1": ' + x1 + ',"x2": ' + x2 + ',"y1": ' + y1 + ',"y2": ' + y2);
 }
 
 function showComment() {
@@ -72,25 +93,17 @@ function showComment() {
 }
 
 function doAfterLoad() {
-    setInterval(fetchComment,1000);
+    setInterval(fetchComment, 1000);
     fetchContent();
+    setInterval(reDraw, 1000);
     $(window).resize(function() {
-	$("#comment-frame").css({
-	    "height": $(window).height() - 162
-	    ,"width": $('#comment-row').width()
-	});
-	$("#canvas-frame").css({
-	    "height": $(window).height() - 162
-	    ,"width": $('#content-row').width()
-	});
-	contentHeight = $('#player-scroll').height();
-	contentWidth = $('#player-scroll').width();
-	fetchComment();
+	reDraw();
 	showComment();
     });
     $(window).resize();
 
     $(window).scroll(function() {
+	showComment();
     });
 
     $('[data-toggle=offcanvas]').click(function() {
@@ -110,30 +123,33 @@ function doAfterLoad() {
 	}
     });
 
-    $('#canvas-frame').mouseup(function(){
+    $('#canvas-frame').mouseup(function(e){
+	console.log(e);
 	mouseDown = 0;
-	if($('#selected').width() * $('#selected').height() == 0) {
+	if($('#selected').width() * $('#selected').height() <= 100) {
 	    showComment();
 	    return;
 	}
 	newComment();
-    });
-
-    $(window).scroll(function() {
-	showComment();
     });
     
     $('#canvas-frame').mousedown(function(e) {
 	mouseDown = 1;
 	selected.left = e.pageX;
 	selected.top = e.pageY - $(window).scrollTop();
+	var x1, y1, x2, y2;
+	x1 = selected.left;
+	y1 = selected.top;
+	x2 = e.pageX;
+	y2 = e.pageY - $(window).scrollTop();
+	$('#selected').css({"left": Math.min(x1, x2), "top": Math.min(y1, y2), "width": Math.abs(x2 - x1), "height": Math.abs(y2 - y1)});
     });
 
     $('#cancel-comment').click(showComment);
     
 
-    $('.balloon-laid').mouseover(function() {
-	console.log(123)
+    $('.balloon-laid').mouseover(function(e) {
+	console.log(123);
     }); // failed
 }
 

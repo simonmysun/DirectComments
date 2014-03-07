@@ -14,7 +14,7 @@
 }
 
 .scroll {
-    overflow: auto;
+    overflow: hidden;
 }
 
 #player-scroll {
@@ -146,4 +146,5 @@ body {
     position: absolute;
     border: 1px rgba(155,155,255,0.5) solid;
     background: rgba(233,233,255,0.2);
+    z-index: 1005;
 }
