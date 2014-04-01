@@ -2,9 +2,34 @@
     margin-top: 20px;
 }
 
-.mainbody {
+#mainbody {
     padding-top: 80px;
     padding-bottom: 80px;
+}
+
+#mainframe {
+    position: fixed;
+    top: 80px;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+#mainframe .container {
+    height: 100%;
+}
+
+#mainframe .row {
+    height: 100%;
+}
+
+#content-row {
+    height: 100%;
+}
+
+#comment-row {
+    height: 100%;
 }
 
 .frame {
@@ -22,15 +47,20 @@
 }
 
 #canvas-frame {
-    position: fixed;
-    top: 80px;
-    border: 1px #f77 solid;
-    z-index: 1005;
-}
+    height: 100%;
+    background: rgba(0, 0, 0, 0.018);
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 3px;
 
-#comment-frame {
-    position: fixed;
-    top: 80px;
+    z-index: 1500;
+
+    cursor: crosshair;
+
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none;  /*webkit浏览器*/
+    -ms-user-select: none;   /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
 }
 
 #comment-list-frame {
@@ -55,6 +85,12 @@
 
 #a-comment {
     height: 50%;
+
+    -moz-user-select: all; /*火狐*/
+    -webkit-user-select: all;  /*webkit浏览器*/
+    -ms-user-select: all;   /*IE10*/
+    -khtml-user-select: all; /*早期浏览器*/
+    user-select: all;
 }
 
 #new-comment {
@@ -68,40 +104,46 @@
 
 html,
 body {
-  overflow-x: hidden; /* Prevent scroll on narrow devices */
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none;  /*webkit浏览器*/
+    -ms-user-select: none;   /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
 }
 
 @media screen and (max-width: 767px) {
-  .row-offcanvas {
-    position: relative;
-    -webkit-transition: all 0.25s ease-out;
-    -moz-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
-  }
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
 
-  .row-offcanvas-right
+    .row-offcanvas-right
   .sidebar-offcanvas {
-    right: -75%; /* 9 columns */
-  }
+        right: -75%; /* 9 columns */
+    }
 
-  .row-offcanvas-left
+    .row-offcanvas-left
   .sidebar-offcanvas {
-    left: -75%; /* 9 columns */
-  }
+        left: -75%; /* 9 columns */
+    }
 
-  .row-offcanvas-right.active {
-    right: 75%; /* 9 columns */
-  }
+    .row-offcanvas-right.active {
+        right: 75%; /* 9 columns */
+    }
 
-  .row-offcanvas-left.active {
-    left: 75%; /* 9 columns */
-  }
+    .row-offcanvas-left.active {
+        left: 75%; /* 9 columns */
+    }
 
-  .sidebar-offcanvas {
-    position: absolute;
-    top: 0;
-    width: 75%; /* 9 columns */
-  }
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 75%; /* 9 columns */
+    }
 }
 
 .navbar-toggle {
@@ -113,7 +155,6 @@ body {
 }
 
 .content-pic {
-    z-index: 100;
     width: 100%;
 }
 
@@ -137,22 +178,26 @@ body {
 
 #selected {
     position: fixed;
-    z-index: 1001;
     border: 1px #f00 solid;
-    display: hidden;
+    display: none;
+    z-index: 1005;
 }
 
 .balloon-laid {
     position: absolute;
-    border: 1px rgba(155,155,255,0.5) solid;
-    background: rgba(233,233,255,0.2);
-    z-index: 1010;
+    border: 1px rgba(155, 155, 255, 0.5) solid;
+    background: rgba(233, 233, 255, 0.2);
+    border-radius: 3px;
+    padding: 3px;
+    z-index: 1007;
+    cursor: crosshair;
 }
 
 .comment {
     width: 100%;
-    height: 40px;
+    height: 50px;
     overflow: hidden;
     border: 1px rgba(155,155,255,0.5) solid;
     background: rgba(233,233,255,0.2);
+    padding: 5px;
 }
