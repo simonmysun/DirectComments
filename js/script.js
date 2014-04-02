@@ -25,6 +25,12 @@ function fetchComment() {
                 });
                 //maybe better method
                 balloon.on({
+                    mouseover: function (e) {
+                        $(this).fadeTo(300,0.2);
+                    },
+                    mouseout: function (e) {
+                        $(this).fadeTo(300,1);
+                    },
                     mousedown: function (e) {
                         mouseDown = true;
                         selected = {};
