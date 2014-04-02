@@ -5,7 +5,7 @@ var commentDict = [];
 
 function fetchComment() {
     $.get(commentUrl, function (response) {
-        var list = $.parseJSON(response).list;
+        var list = response.list;
         $.each(list, function (index, comment) {
             commentDict[comment.id] = comment;
             //is comment element exist?
@@ -98,7 +98,7 @@ function fetchComment() {
 
 function fetchContent() {
     $.get(contentUrl, function (response) {
-        var content = $.parseJSON(response).content;
+        var content = response.content;
         $.each(content, function (index, content) {
             //is content element exist?
             if ($('#content-page-' + content.page)[0] === undefined) {
